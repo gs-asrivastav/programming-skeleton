@@ -31,12 +31,8 @@ public class SampleTest {
             .onSuccess(o -> log.info("Output: {}", o))
             .onRetry((count, err) -> log.info("Retry:: " + count + ", Error:: " + err.getMessage()))
             .withEnableRetry(Boolean.FALSE)
-            .run((Callable<Integer>) () -> {
-              if (i.incrementAndGet() != 4) {
-                throw new NotImplementedException("Lol!!");
-              }
-              return i.get();
-            }).map(result -> result * 10);
+            .run(runner)
+            .map(result -> result * 10);
     Assert.assertEquals(1, i.get());
     Assert.assertFalse(runResult.isSuccess());
   }
@@ -44,7 +40,7 @@ public class SampleTest {
   @Test
   public void sampleWithRetry() {
     AtomicInteger i = new AtomicInteger(0);
-    Callable<Integer> runner = (Callable<Integer>) () -> {
+    Callable<Integer> runner = () -> {
       if (i.incrementAndGet() != 4) {
         throw new NotImplementedException("Lol!!");
       }
@@ -58,12 +54,8 @@ public class SampleTest {
             .withRetryDuration(1, TimeUnit.SECONDS)
             .retrySupportedOn(NotImplementedException.class)
             .withRetries(5)
-            .run((Callable<Integer>) () -> {
-              if (i.incrementAndGet() != 3) {
-                throw new NotImplementedException("Lol!!");
-              }
-              return i.get();
-            }).map(result -> result * 10);
+            .run(runner)
+            .map(result -> result * 10);
     Assert.assertTrue(runResult.isSuccess());
   }
 }
