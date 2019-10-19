@@ -20,7 +20,7 @@ public class SampleTest {
   @Test
   public void sampleWithoutRetry() {
     AtomicInteger i = new AtomicInteger(0);
-    Callable<Integer> runner = (Callable<Integer>) () -> {
+    Callable<Integer> runner = () -> {
       if (i.incrementAndGet() != 4) {
         throw new NotImplementedException("Lol!!");
       }

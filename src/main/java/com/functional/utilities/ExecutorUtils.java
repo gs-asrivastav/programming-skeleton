@@ -29,7 +29,6 @@ public abstract class ExecutorUtils {
   public static ExecutorService getExecutor() {
     if (Objects.isNull(EXECUTOR)) {
       synchronized (EXECUTOR_LOCK) {
-
         ThreadFactory threadFactory = new ThreadFactoryBuilder()
             .setNameFormat("Internal-Runner-%d")
             .setUncaughtExceptionHandler((t, e) -> {

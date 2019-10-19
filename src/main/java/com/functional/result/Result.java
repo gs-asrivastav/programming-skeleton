@@ -37,7 +37,7 @@ public abstract class Result<T> {
 
   public abstract Throwable getException();
 
-  public Long getRunDuration() {
+  public Long getDuration() {
     return this.duration;
   }
 
