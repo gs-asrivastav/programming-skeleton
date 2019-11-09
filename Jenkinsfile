@@ -31,6 +31,21 @@ pipeline {
                 }
             }
         }*/
+        stage('Static Analysis') {
+            steps {
+                print("Will run static analysis in this block")
+            }
+        }
+        stage('Sonar & Unit Tests') {
+            steps {
+                print("Will run sonar and unit tests in this block")
+            }
+        }
+        stage('Integration Tests') {
+            steps {
+                print("Will run integration tests in this block")
+            }
+        }
         stage('Build') {
             steps {
                 sh 'mvn clean install -DskipTests'
